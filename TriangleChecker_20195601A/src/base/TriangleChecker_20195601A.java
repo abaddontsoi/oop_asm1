@@ -3,25 +3,31 @@ import java.util.*;
 
 public class TriangleChecker_20195601A {
 	
-	// Validates the input
+	// Validates the input range
 	public static boolean correctRange(double [] input) {
 		return (input[0] > 0) && (input[1] > 0) && (input[2] > 0);
 	}
 	
+	// Validates the input data type
+	
+	// Validates the availability  of forming a triangle
+	public static boolean isTri(double [] input) {
+		return (input[0] < input[1] + input[2]) && (input[1] < input[0] + input[2]) && (input[2] < input[0] + input[1]);
+	}
 	
 	// checking if the triangle is an equilateral triangle 
 	public static boolean check_equ_tri(double [] side) {
-		return ((side[0] == side[1]) && (side[1] == side[2])) ;
+		return ((side[0] == side[1]) && (side[1] == side[2])) && isTri(side) ;
 	}
 	
 	// checking if the triangle is an isosceles triangle
 	public static boolean check_isosceles_tri(double [] side) {
-		return (side[0] == side[1])^(side[0] == side[2])^(side[1] == side[2]) && !(check_equ_tri(side));
+		return (side[0] == side[1])^(side[0] == side[2])^(side[1] == side[2]) && !(check_equ_tri(side)) && isTri(side);
 	}
 	
 	// checking if the triangle is an scalene triangle
 	public static boolean check_scalene_triangle(double [] side) {
-		return !check_isosceles_tri(side) && !check_equ_tri(side);
+		return !check_isosceles_tri(side) && !check_equ_tri(side) && isTri(side);
 	}
 	
 	// checking if the triangle is an right angled triangle
@@ -31,7 +37,7 @@ public class TriangleChecker_20195601A {
 		double c_sqr = side[2]*side[2];
 		
 		// boolean isIsosceles = check_isosceles_tri(a_side, b_side, c_side);
-		return (a_sqr == b_sqr + c_sqr) || (b_sqr == a_sqr + c_sqr) || (c_sqr == a_sqr+b_sqr);
+		return ((a_sqr == b_sqr + c_sqr) || (b_sqr == a_sqr + c_sqr) || (c_sqr == a_sqr+b_sqr)) && isTri(side) ;
 	}
 	
 	public static void main(String[] args) {
@@ -51,7 +57,7 @@ public class TriangleChecker_20195601A {
 		System.out.println("Enter C side: ");
 		inputSet[2] = sc.nextDouble();
 		
-		if(correctRange(inputSet)) {
+		if(correctRange(inputSet) && isTri(inputSet)) {
 			boolean flag1 = check_isosceles_tri(inputSet); 
 			boolean flag2 = check_scalene_triangle(inputSet);
 			boolean flag3 = check_equ_tri(inputSet);
@@ -71,7 +77,8 @@ public class TriangleChecker_20195601A {
 			}
 		}
 		else {
-			System.out.println("At least one of the input is equal or less than 0.");
+			System.out.println("At least one of the input is equal or less than 0 or they cannot form a triangle.");
 		}
+		
 	}
 }
