@@ -1,4 +1,4 @@
-package base;
+// package base;
 import java.util.*;
 
 public class TriangleChecker_20195601A {
