@@ -9,6 +9,9 @@ public class TriangleChecker_20195601A {
 	}
 	
 	// Validates the input data type
+	public static boolean collectData(double [] input) {
+		return true;
+	}
 	
 	// Validates the availability  of forming a triangle
 	public static boolean isTri(double [] input) {
@@ -40,45 +43,64 @@ public class TriangleChecker_20195601A {
 		return ((a_sqr == b_sqr + c_sqr) || (b_sqr == a_sqr + c_sqr) || (c_sqr == a_sqr+b_sqr)) && isTri(side) ;
 	}
 	
-	public static void main(String[] args) {
+	public static double[] gatherInput(){
+		double [] input = new double[3];
 		
 		System.out.println("Please enter those 3 sides one by one.");
 		
 		Scanner sc = new Scanner(System.in);
 		
-		double[] inputSet = new double[3];
+		try {
+			System.out.println("Enter A side: ");
+			input[0] = sc.nextDouble();
+			
+			System.out.println("Enter B side: ");
+			input[1] = sc.nextDouble();
+			
+			System.out.println("Enter C side: ");
+			input[2] = sc.nextDouble();
+			
+			sc.close();
+		}catch (Exception e) {
+			System.out.println("Inappropriate data type or unknown error.");
+			sc.close();
+		}
 		
-		System.out.println("Enter A side: ");
-		inputSet[0] = sc.nextDouble();
-		
-		System.out.println("Enter B side: ");
-		inputSet[1] = sc.nextDouble();
-		
-		System.out.println("Enter C side: ");
-		inputSet[2] = sc.nextDouble();
-		
-		if(correctRange(inputSet) && isTri(inputSet)) {
-			boolean flag1 = check_isosceles_tri(inputSet); 
-			boolean flag2 = check_scalene_triangle(inputSet);
-			boolean flag3 = check_equ_tri(inputSet);
-			boolean flag4 = check_right_angled_tri(inputSet);
+		return input;
+	}
+	
+	public static void panel() {
+					
+			double[] inputSet = gatherInput();
+			
+			if(correctRange(inputSet) && isTri(inputSet)) {
+				
+				boolean flag1 = check_isosceles_tri(inputSet); 
+				boolean flag2 = check_scalene_triangle(inputSet);
+				boolean flag3 = check_equ_tri(inputSet);
+				boolean flag4 = check_right_angled_tri(inputSet);
 
-			if(flag4) {
-				System.out.println("This is a Right angled triangle.");
+				if(flag4) {
+					System.out.println("This is a Right angled triangle.");
+				}
+				if(flag3) {
+					System.out.println("This is an Equilateral triangle.");
+				}	
+				if(flag2) {
+					System.out.println("This is a Scalene triangle.");
+				}
+				if(flag1) {
+					System.out.println("This is a Isosceles triangle.");
+				}
 			}
-			if(flag3) {
-				System.out.println("This is an Equilateral triangle.");
-			}	
-			if(flag2) {
-				System.out.println("This is a Scalene triangle.");
+			else {
+				System.out.println("Can't recognize any related triangle from user inputs. ");
+				inputSet = null;
 			}
-			if(flag1) {
-				System.out.println("This is a Isosceles triangle.");
-			}
-		}
-		else {
-			System.out.println("At least one of the input is equal or less than 0 or they cannot form a triangle.");
-		}
-		
+	}
+	
+	public static void main(String[] args) {
+		panel();
+		System.out.println("Exiting... ");
 	}
 }
