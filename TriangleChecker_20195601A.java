@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class TriangleChecker_20008848A
+public class TriangleChecker_20195601A
 {   
     public static void main( String[] args)
     {
